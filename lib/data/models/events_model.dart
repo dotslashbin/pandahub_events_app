@@ -4,13 +4,17 @@ class Event {
   final String description;
   final String organizer;
   final String eventType;
-
+  final String date;
+  final String location;
+  
   Event({
     required this.id,
     required this.title,
     required this.description,
     required this.organizer,
     required this.eventType,
+    required this.date,
+    required this.location,
   });
 
   // Factory method to create an event from JSON
@@ -21,6 +25,8 @@ class Event {
       description: json['description'],
       organizer: json['organizer'],
       eventType: json['eventType'],
+      date: json['date'],
+      location: json['location'],
     );
   }
 
@@ -32,6 +38,8 @@ class Event {
       'description': description,
       'organizer': organizer,
       'eventType': eventType,
+      'date': date,
+      'location': location,
     };
   }
 }
