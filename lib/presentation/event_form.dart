@@ -14,17 +14,19 @@ class EventForm extends StatefulWidget {
 class _EventFormState extends State<EventForm> {
   final _formKey = GlobalKey<FormState>();
   late String title;
-  // late String date;
+  late String date;
   late String organizer;
   late String eventType;
+  late String location;
 
   @override
   void initState() {
     super.initState();
     title = widget.event?.title ?? '';
-    // date = widget.event?.date ?? '';
+    date = widget.event?.date ?? '';
     organizer = widget.event?.organizer ?? '';
     eventType = widget.event?.eventType ?? 'Conference';
+    location = widget.event?.location ?? '';
   }
 
   @override
@@ -42,12 +44,6 @@ class _EventFormState extends State<EventForm> {
               onSaved: (value) => title = value!,
               validator: (value) => value!.isEmpty ? 'Please enter title' : null,
             ),
-            // TextFormField(
-            //   initialValue: date,
-            //   decoration: InputDecoration(labelText: 'Date'),
-            //   onSaved: (value) => date = value!,
-            //   validator: (value) => value!.isEmpty ? 'Please enter date' : null,
-            // ),
             TextFormField(
               initialValue: organizer,
               decoration: InputDecoration(labelText: 'Organizer'),
@@ -55,13 +51,25 @@ class _EventFormState extends State<EventForm> {
               validator: (value) => value!.isEmpty ? 'Please enter organizer' : null,
             ),
             DropdownButtonFormField<String>(
-              value: eventType,
+              value:eventType,
               items: ['Conference', 'Workshop', 'Seminar']
                   .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                   .toList(),
               onChanged: (value) => setState(() => eventType = value!),
               onSaved: (value) => eventType = value!,
               decoration: InputDecoration(labelText: 'Event Type'),
+            ),
+            TextFormField(
+              initialValue: date,
+              decoration: InputDecoration(labelText: 'Date'),
+              onSaved: (value) => date = value!,
+              validator: (value) => value!.isEmpty ? 'Please enter date' : null,
+            ),
+            TextFormField(
+              initialValue: location,
+              decoration: InputDecoration(labelText: 'Location'),
+              onSaved: (value) => location = value!,
+              validator: (value) => value!.isEmpty ? 'Please enter Location' : null,
             ),
           ],
         ),
@@ -81,6 +89,8 @@ class _EventFormState extends State<EventForm> {
                 description: 'this is description',
                 organizer: organizer,
                 eventType: eventType,
+                date: date,
+                location: location
               ));
               Navigator.of(context).pop();
             }
