@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../data/providers/event_provider.dart';
 import '../data/models/events_model.dart';
 import './event_form.dart';
+import './event_details_screen.dart';  // Import the new details screen
 
 class EventListScreen extends StatefulWidget {
   @override
@@ -54,7 +55,21 @@ class _EventListScreenState extends State<EventListScreen> {
       itemBuilder: (context, index) {
         final event = provider.filteredEvents[index];
         return ListTile(
-          title: Text(event.title),
+          title: GestureDetector(
+            onTap: () {
+              // Navigate to EventDetailsScreen on title tap
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EventDetailsScreen(event: event),
+                ),
+              );
+            },
+            child: Text(
+              event.title,
+              style: TextStyle(color: Colors.blue, fontSize: 18),
+            ),
+          ),
           subtitle: Text('Organizer: ${event.organizer}'),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
