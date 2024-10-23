@@ -12,9 +12,6 @@ class EventProvider with ChangeNotifier {
 
   Future<void> loadEvents() async {
     _events = await _eventService.fetchEvents();
-
-    print(_events);
-
     notifyListeners();
   }
 
